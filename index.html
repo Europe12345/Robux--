@@ -2,54 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Security Warning</title>
+  <title>Global Chat</title>
   <style>
     body {
       background: radial-gradient(circle at top, #1a1a2e, #0f0f14);
       color: #ffffff;
       font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
     }
-    .box {
-      max-width: 650px;
-      margin: auto;
-      padding: 35px;
-      border-radius: 14px;
+    .chat-box {
+      width: 400px;
+      max-width: 90%;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
       background: linear-gradient(145deg, #1b1b27, #151521);
+      border-radius: 14px;
+      padding: 15px;
       box-shadow: 0 0 30px rgba(0,0,0,0.5);
       border: 1px solid rgba(255,255,255,0.05);
     }
-    h1 {
-      color: #ff5f5f;
-      margin-bottom: 15px;
-    }
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-      color: #dcdcdc;
-    }
-    .warning {
-      margin-top: 20px;
-      padding: 15px;
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      padding: 10px;
       border-radius: 10px;
-      background: rgba(255,95,95,0.1);
-      border: 1px solid rgba(255,95,95,0.3);
-      color: #ffb3b3;
+      background: rgba(0,0,0,0.2);
+    }
+    #messages p {
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      word-wrap: break-word;
+    }
+    #chatForm {
+      display: flex;
+    }
+    #chatInput {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background: #1b1b27;
+      color: #fff;
+    }
+    #sendBtn {
+      padding: 10px 15px;
+      margin-left: 10px;
+      border-radius: 8px;
+      border: none;
+      background: #ff5f5f;
+      color: #fff;
+      cursor: pointer;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h1>⚠ Security Warning</h1>
-    <p>
-      Dont trust these type of webs.  
-      They can be malware or steal your personal data.
-    </p>
-    <div class="warning">
-      Never enter passwords, tokens, or private information on random websites.
-    </div>
+  <div class="chat-box">
+    <div id="messages"></div>
+    <form id="chatForm">
+      <input id="chatInput" type="text" placeholder="Type a message..." autocomplete="off" />
+      <button type="submit" id="sendBtn">Send</button>
+    </form>
   </div>
+
+  <script>
+    const messages = document.getElementById('messages');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+
+    // For demo: store messages locally
+    let chatHistory = [];
+
+    function addMessage(msg) {
+      const p = document.createElement('p');
+      p.textContent = msg;
+      messages.appendChild(p);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    chatForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const message = chatInput.value.trim();
+      if (!message) return;
+      chatHistory.push(message); // for demo
+      addMessage("You: " + message);
+      chatInput.value = "";
+
+      // TODO: send message to server to broadcast globally
+    });
+
+    // Demo: simulate receiving messages
+    setInterval(() => {
+      if (Math.random() < 0.1) {
+        addMessage("Someone: Hello from the web!");
+      }
+    }, 3000);
+  </script>
 </body>
 </html>
