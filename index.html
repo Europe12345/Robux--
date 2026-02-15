@@ -1,113 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Global Chat</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My YouTube Video Hub</title>
+<style>
     body {
-      background: radial-gradient(circle at top, #1a1a2e, #0f0f14);
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0f172a;
+        color: #fff;
     }
-    .chat-box {
-      width: 400px;
-      max-width: 90%;
-      height: 600px;
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(145deg, #1b1b27, #151521);
-      border-radius: 14px;
-      padding: 15px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.05);
+
+    header {
+        background: linear-gradient(135deg, #7c3aed, #2563eb);
+        padding: 25px;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 1px;
     }
-    #messages {
-      flex: 1;
-      overflow-y: auto;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.2);
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
     }
-    #messages p {
-      margin: 5px 0;
-      padding: 8px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.05);
-      word-wrap: break-word;
+
+    .video-card {
+        background: #020617;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        transition: transform 0.3s;
     }
-    #chatForm {
-      display: flex;
+
+    .video-card:hover {
+        transform: scale(1.03);
     }
-    #chatInput {
-      flex: 1;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      font-size: 16px;
-      background: #1b1b27;
-      color: #fff;
+
+    iframe {
+        width: 100%;
+        height: 200px;
+        border: none;
     }
-    #sendBtn {
-      padding: 10px 15px;
-      margin-left: 10px;
-      border-radius: 8px;
-      border: none;
-      background: #ff5f5f;
-      color: #fff;
-      cursor: pointer;
-      font-weight: bold;
+
+    .video-info {
+        padding: 15px;
     }
-  </style>
+
+    .video-info h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #38bdf8;
+    }
+
+    .video-info p {
+        margin: 0;
+        font-size: 14px;
+        color: #cbd5f5;
+    }
+
+    footer {
+        text-align: center;
+        padding: 15px;
+        background: #020617;
+        color: #94a3b8;
+        font-size: 13px;
+    }
+</style>
 </head>
 <body>
-  <div class="chat-box">
-    <div id="messages"></div>
-    <form id="chatForm">
-      <input id="chatInput" type="text" placeholder="Type a message..." autocomplete="off" />
-      <button type="submit" id="sendBtn">Send</button>
-    </form>
-  </div>
 
-  <script>
-    const messages = document.getElementById('messages');
-    const chatForm = document.getElementById('chatForm');
-    const chatInput = document.getElementById('chatInput');
+<header>
+    🎬 My YouTube Video Hub
+</header>
 
-    // For demo: store messages locally
-    let chatHistory = [];
+<div class="container">
 
-    function addMessage(msg) {
-      const p = document.createElement('p');
-      p.textContent = msg;
-      messages.appendChild(p);
-      messages.scrollTop = messages.scrollHeight;
-    }
+    <!-- VIDEO 1 -->
+    <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/LMVxzbYD4to" allowfullscreen></iframe>
+        <div class="video-info">
+            <h3>I Tested Scam Apps on Third-Party App Stores</h3>
+            <p>Testing fake and scam apps from risky third-party stores.</p>
+        </div>
+    </div>
 
-    chatForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const message = chatInput.value.trim();
-      if (!message) return;
-      chatHistory.push(message); // for demo
-      addMessage("You: " + message);
-      chatInput.value = "";
+    <!-- ADD MORE VIDEOS BELOW -->
 
-      // TODO: send message to server to broadcast globally
-    });
+    <!-- Example -->
+    <!--
+    <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen></iframe>
+        <div class="video-info">
+            <h3>Video Title</h3>
+            <p>Short description here.</p>
+        </div>
+    </div>
+    -->
 
-    // Demo: simulate receiving messages
-    setInterval(() => {
-      if (Math.random() < 0.1) {
-        addMessage("Someone: Hello from the web!");
-      }
-    }, 3000);
-  </script>
+</div>
+
+<footer>
+    © 2026 | My Video Website
+</footer>
+
 </body>
 </html>
+
