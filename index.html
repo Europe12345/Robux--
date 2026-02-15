@@ -2,48 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Page Not Working</title>
+  <title>Security Warning</title>
   <style>
     body {
-      background: #0f0f14;
+      background: radial-gradient(circle at top, #1a1a2e, #0f0f14);
       color: #ffffff;
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 60px;
     }
     .box {
-      max-width: 600px;
+      max-width: 650px;
       margin: auto;
-      padding: 30px;
-      border-radius: 12px;
-      background: #1b1b27;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      padding: 35px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #1b1b27, #151521);
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.05);
     }
-    a {
-      color: #4f8cff;
+    h1 {
+      color: #ff5f5f;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #dcdcdc;
+    }
+    .warning {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(255,95,95,0.1);
+      border: 1px solid rgba(255,95,95,0.3);
+      color: #ffb3b3;
       font-weight: bold;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="box">
-    <h1>Sorry, this page is not working</h1>
+    <h1>⚠ Security Warning</h1>
     <p>
-      If you hacked my webhook, I don’t really care.  
-      I just wanted to see what people would do.
+      Dont trust these type of webs.  
+      They can be malware or steal your personal data.
     </p>
-    <p>
-      If you want to join my Discord server, the link is:
-    </p>
-    <p>
-      <a href="https://discord.gg/GaaaY4ns" target="_blank">
-        https://discord.gg/GaaaY4ns
-      </a>
-    </p>
+    <div class="warning">
+      Never enter passwords, tokens, or private information on random websites.
+    </div>
   </div>
 </body>
 </html>
