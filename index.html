@@ -6,12 +6,36 @@
     body {
       background: #0f172a;
       font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
+      color: white;
+    }
+
+    /* Floating Copy Button */
+    .copy-btn {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 14px 18px;
+      background: rgba(2, 6, 23, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 10px;
+      color: #38bdf8;
+      font-size: 15px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+      transition: 0.25s;
+    }
+
+    .copy-btn:hover {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
       color: white;
     }
 
@@ -41,6 +65,12 @@
       backdrop-filter: blur(10px);
       border: 1px solid rgba(56, 189, 248, 0.2);
       text-align: center;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
@@ -50,7 +80,6 @@
       text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
     }
 
-    /* Inputs */
     .input-box {
       width: 100%;
       padding: 14px;
@@ -70,7 +99,6 @@
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
     }
 
-    /* Button */
     button {
       width: 100%;
       padding: 14px;
@@ -90,7 +118,6 @@
       box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
     }
 
-    /* Status Text */
     #status {
       margin-top: 12px;
       font-size: 14px;
@@ -108,20 +135,27 @@
 </head>
 <body>
 
+<button class="copy-btn" onclick="copyLink()">Copy Link</button>
+
 <script>
-/* Falling Robux Generator */
+/* Falling Robux */
 function spawnRobux() {
   const r = document.createElement("div");
   r.classList.add("robux");
   r.innerHTML = "R$";
-
   r.style.left = Math.random() * 100 + "vw";
   r.style.animationDuration = (Math.random() * 3 + 3) + "s";
-
   document.body.appendChild(r);
   setTimeout(() => r.remove(), 6000);
 }
 setInterval(spawnRobux, 300);
+
+/* Copy Link */
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    alert("Link copied!");
+  });
+}
 </script>
 
 <div class="box">
