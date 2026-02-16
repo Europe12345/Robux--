@@ -1,81 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Bouncing Smiles</title>
-<style>
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: black;
-}
-
-.smile {
-    position: absolute;
-    font-size: 50px;
-    user-select: none;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Send Hi to Webhook</title>
 </head>
 <body>
+    <button id="sendButton">Send</button>
 
-<div id="smile1" class="smile">😊</div>
-<div id="smile2" class="smile">😎</div>
+    <script>
+        const webhookURL = "https://discord.com/api/webhooks/1472839923592728599/-3BR0DF35o6XepfkyX0Xpbk8yFt0mcyMQjYUJPsKVscepmWPhQZ-Bso7hYaF9toy5n6U"; // replace with your webhook URL
+        let intervalId;
 
-<audio id="bounceSound" src="https://www.soundjay.com/button/sounds/button-16.mp3" preload="auto"></audio>
-
-<script>
-const parts = [
-    { el: document.getElementById("smile1"), x: 100, y: 100, vx: 3, vy: 2 },
-    { el: document.getElementById("smile2"), x: 300, y: 200, vx: -2, vy: 3 }
-];
-
-const sound = document.getElementById("bounceSound");
-
-function bounce() {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-
-    parts.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // bounce off walls
-        if (p.x <= 0 || p.x + p.el.offsetWidth >= w) {
-            p.vx *= -1;
-            sound.play();
-        }
-        if (p.y <= 0 || p.y + p.el.offsetHeight >= h) {
-            p.vy *= -1;
-            sound.play();
-        }
-
-        p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
-    });
-
-    requestAnimationFrame(bounce);
-}
-
-// start bouncing immediately
-bounce();
-
-// Optional: Text-to-speech loop
-function speakLoop() {
-    const msg = new SpeechSynthesisUtterance("😄 Bouncing smiles!");
-    msg.rate = 1;
-    msg.pitch = 1.2;
-    msg.onend = () => setTimeout(speakLoop, 2000);
-    speechSynthesis.speak(msg);
-}
-
-// auto start TTS on load after user gesture
-document.body.addEventListener("click", () => {
-    speechSynthesis.cancel();
-    speakLoop();
-}, { once: true });
-</script>
-
+        document.getElementById("sendButton").addEventListener("click", function() {
+            if (!intervalId) { // prevent multiple intervals
+                intervalId = setInterval(() => {
+                    fetch(webhookURL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            content: "@everyone"
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            console.error("Error sending message:", response.statusText);
+                        }
+                    })
+                    .catch(err => console.error("Fetch error:", err));
+                }, 100); // 10000ms = 10 seconds
+            }
+        });
+    </script>
 </body>
 </html>
