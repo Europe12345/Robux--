@@ -1,100 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Webhook Sender</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .box {
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-    }
-    textarea {
-      width: 100%;
-      height: 80px;
-      border-radius: 5px;
-      border: none;
-      padding: 8px;
-      resize: none;
-    }
-    button {
-      margin-top: 10px;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background: #5865F2;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #4752c4;
-    }
-    .status {
-      margin-top: 10px;
-      font-size: 14px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>CRITICAL SYSTEM ALERT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: red;
+    font-family: Consolas, monospace;
+    overflow: hidden;
+    user-select: none;
+}
+
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.glitch {
+    font-size: 48px;
+    animation: flicker 0.15s infinite alternate;
+    text-shadow: 0 0 10px red;
+}
+
+@keyframes flicker {
+    from { opacity: 1; }
+    to { opacity: 0.6; }
+}
+
+#log {
+    width: 80%;
+    height: 40%;
+    border: 2px solid red;
+    margin-top: 20px;
+    padding: 10px;
+    overflow: hidden;
+    background: rgba(255,0,0,0.05);
+}
+
+.progress {
+    width: 80%;
+    height: 20px;
+    border: 2px solid red;
+    margin-top: 15px;
+}
+
+.bar {
+    height: 100%;
+    width: 0%;
+    background: red;
+    transition: width 0.3s;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: black;
+    border: 2px solid red;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover { background: red; color: black; }
+</style>
 </head>
+
 <body>
-  <div class="box">
-    <h2>Send to Webhook</h2>
-    <textarea id="message" placeholder="Type your message..."></textarea>
-    <button onclick="sendMessage()">Send</button>
-    <div class="status" id="status"></div>
-  </div>
+<div id="overlay">
+    <div class="glitch">⚠ CRITICAL VIRUS DETECTED ⚠</div>
+    <div>System breach in progress...</div>
 
-  <script>
-    const WEBHOOK_URL = "i݊((n(㽼vߟvo9t]ޥ2_EnO2&s#	>ǩcAa}";
+    <div class="progress">
+        <div class="bar" id="bar"></div>
+    </div>
 
-    function sendMessage() {
-      const msg = document.getElementById("message").value;
-      const status = document.getElementById("status");
+    <div id="log"></div>
 
-      if (!msg.trim()) {
-        status.textContent = "Message cannot be empty.";
-        status.style.color = "red";
-        return;
-      }
+    <button onclick="unlock()">ENTER SECURITY CODE</button>
+</div>
 
-      fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          content: msg
-        })
-      })
-      .then(res => {
-        if (res.ok) {
-          status.textContent = "Message sent!";
-          status.style.color = "lime";
-          document.getElementById("message").value = "";
-        } else {
-          status.textContent = "Failed to send.";
-          status.style.color = "red";
-        }
-      })
-      .catch(err => {
-        status.textContent = "Error sending message.";
-        status.style.color = "red";
-      });
+<audio id="alarm" loop>
+  <source src="https://www.soundjay.com/misc/sounds/fail-buzzer-01.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const log = document.getElementById("log");
+const bar = document.getElementById("bar");
+const alarm = document.getElementById("alarm");
+
+const fakeFiles = [
+    "C:\\Windows\\System32\\kernel.dll",
+    "C:\\Users\\Documents\\bank_info.xlsx",
+    "C:\\Photos\\family.jpg",
+    "C:\\Chrome\\passwords.db",
+    "C:\\GameSaves\\world.save",
+    "C:\\Drivers\\boot.sys",
+    "C:\\Secure\\crypto.key"
+];
+
+let progress = 0;
+
+function addLog(text) {
+    const line = document.createElement("div");
+    line.textContent = text;
+    log.appendChild(line);
+    log.scrollTop = log.scrollHeight;
+}
+
+setInterval(() => {
+    const file = fakeFiles[Math.floor(Math.random() * fakeFiles.length)];
+    addLog("Deleting: " + file);
+}, 700);
+
+setInterval(() => {
+    if (progress < 100) {
+        progress += Math.random() * 5;
+        bar.style.width = progress + "%";
     }
-  </script>
+}, 500);
+
+document.body.addEventListener("click", () => {
+    alarm.play();
+});
+
+function unlock() {
+    const code = prompt("Enter security override code:");
+    if (code === "1234") {
+        alert("System restored.");
+        location.reload();
+    } else {
+        alert("ACCESS DENIED");
+    }
+}
+</script>
 </body>
 </html>
+
 
