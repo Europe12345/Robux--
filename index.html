@@ -1,110 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Snake Game</title>
+<title>Bouncing Prank</title>
 <style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #222;
-    color: #fff;
-    font-family: sans-serif;
-  }
-  canvas {
-    background-color: #000;
-    border: 2px solid #fff;
-  }
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+.split {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    background-image: url("30023f2c-4e6e-48c1-a5cf-ff594dd97f47.png");
+    background-size: 200% 100%;
+}
+
+#left {
+    left: 0;
+    background-position: left top;
+}
+
+#right {
+    left: 50%;
+    background-position: right top;
+}
 </style>
 </head>
 <body>
-<canvas id="game" width="400" height="400"></canvas>
+
+<div id="left" class="split"></div>
+<div id="right" class="split"></div>
+
 <script>
-  const canvas = document.getElementById('game');
-  const ctx = canvas.getContext('2d');
+const parts = [
+    { el: document.getElementById("left"),  x: 50,  y: 50,  vx: 3, vy: 2 },
+    { el: document.getElementById("right"), x: 300, y: 200, vx: -2, vy: 3 }
+];
 
-  const box = 20;
-  const canvasSize = 400;
+function bounce() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
 
-  let snake = [{ x: 9 * box, y: 9 * box }];
-  let direction = 'RIGHT';
-  let food = {
-    x: Math.floor(Math.random() * (canvasSize / box)) * box,
-    y: Math.floor(Math.random() * (canvasSize / box)) * box
-  };
-  let score = 0;
+    parts.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
 
-  document.addEventListener('keydown', changeDirection);
+        if (p.x <= 0 || p.x + p.el.offsetWidth >= w) p.vx *= -1;
+        if (p.y <= 0 || p.y + p.el.offsetHeight >= h) p.vy *= -1;
 
-  function changeDirection(event) {
-    if (event.key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
-    if (event.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
-    if (event.key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
-    if (event.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
-  }
+        p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
+    });
 
-  function collision(head, array) {
-    for (let i = 0; i < array.length; i++) {
-      if (head.x === array[i].x && head.y === array[i].y) return true;
-    }
-    return false;
-  }
+    requestAnimationFrame(bounce);
+}
 
-  function draw() {
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, canvasSize, canvasSize);
+bounce();
 
-    for (let i = 0; i < snake.length; i++) {
-      ctx.fillStyle = i === 0 ? 'lime' : 'green';
-      ctx.fillRect(snake[i].x, snake[i].y, box, box);
-      ctx.strokeStyle = '#000';
-      ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-    }
+/* Text‑to‑speech loop */
+function speakLoop() {
+    const msg = new SpeechSynthesisUtterance("you are an idiot ahahahah");
+    msg.rate = 1;
+    msg.pitch = 1.2;
+    msg.onend = () => setTimeout(speakLoop, 200);
+    speechSynthesis.speak(msg);
+}
 
-    ctx.fillStyle = 'red';
-    ctx.fillRect(food.x, food.y, box, box);
-
-    let snakeX = snake[0].x;
-    let snakeY = snake[0].y;
-
-    if (direction === 'LEFT') snakeX -= box;
-    if (direction === 'RIGHT') snakeX += box;
-    if (direction === 'UP') snakeY -= box;
-    if (direction === 'DOWN') snakeY += box;
-
-    if (snakeX === food.x && snakeY === food.y) {
-      score++;
-      food = {
-        x: Math.floor(Math.random() * (canvasSize / box)) * box,
-        y: Math.floor(Math.random() * (canvasSize / box)) * box
-      };
-    } else {
-      snake.pop();
-    }
-
-    const newHead = { x: snakeX, y: snakeY };
-
-    if (
-      snakeX < 0 || snakeX >= canvasSize ||
-      snakeY < 0 || snakeY >= canvasSize ||
-      collision(newHead, snake)
-    ) {
-      clearInterval(game);
-      alert('Game Over! Score: ' + score);
-      return;
-    }
-
-    snake.unshift(newHead);
-
-    ctx.fillStyle = 'white';
-    ctx.font = '20px Arial';
-    ctx.fillText('Score: ' + score, 10, 20);
-  }
-
-  const game = setInterval(draw, 100);
+// start after user interacts (browser rule)
+document.body.addEventListener("click", () => {
+    speechSynthesis.cancel();
+    speakLoop();
+}, { once: true });
 </script>
+
 </body>
 </html>
