@@ -1,113 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Send Hi to Webhook</title>
+<meta charset="UTF-8">
+<title>!!! SYSTEM ALERT !!!</title>
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: red;
+    font-family: "Courier New", monospace;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.popup {
+    position: absolute;
+    width: 300px;
+    background: #111;
+    border: 3px solid red;
+    box-shadow: 0 0 15px red;
+    padding: 10px;
+    animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(2px,2px); }
+    50% { transform: translate(-2px,2px); }
+    75% { transform: translate(2px,-2px); }
+    100% { transform: translate(0,0); }
+}
+
+button {
+    width: 100%;
+    background: red;
+    color: black;
+    border: none;
+    padding: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.marquee {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: darkred;
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 8s linear infinite;
+}
+
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+</style>
 </head>
+
 <body>
-    <button id="sendButton">Send</button>
 
-    <script>
-        const webhookURL = "https://discord.com/api/webhooks/1472839923592728599/-3BR0DF35o6XepfkyX0Xpbk8yFt0mcyMQjYUJPsKVscepmWPhQZ-Bso7hYaF9toy5n6U"; // replace with your webhook URL
-        let intervalId;
+<h1>⚠ YOUR COMPUTER IS INFECTED ⚠</h1>
 
-        document.getElementById("sendButton").addEventListener("click", function() {
-            if (!intervalId) { // prevent multiple intervals
-                intervalId = setInterval(() => {
-                    fetch(webhookURL, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            content: "@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone
-@everyone"
-                        })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            console.error("Error sending message:", response.statusText);
-                        }
-                    })
-                    .catch(err => console.error("Fetch error:", err));
-                }, 1); // 10000ms = 10 seconds
-            }
-        });
-    </script>
+<div class="popup" style="top:80px; left:50px;">
+    <p>ERROR 0xDEAD</p>
+    <p>Trojan.exe detected!</p>
+    <button>REMOVE NOW</button>
+</div>
+
+<div class="popup" style="top:200px; left:300px;">
+    <p>CRITICAL WARNING</p>
+    <p>Data corruption found!</p>
+    <button>SCAN</button>
+</div>
+
+<div class="popup" style="top:120px; left:650px;">
+    <p>SPYWARE ALERT</p>
+    <p>IP Address Leaking!</p>
+    <button>PROTECT</button>
+</div>
+
+<div class="popup" style="top:350px; left:150px;">
+    <p>SYSTEM FAILURE</p>
+    <p>Hard Drive at Risk!</p>
+    <button>FIX</button>
+</div>
+
+<div class="popup" style="top:320px; left:600px;">
+    <p>VIRUS FOUND</p>
+    <p>Memory infected!</p>
+    <button>QUARANTINE</button>
+</div>
+
+<div class="marquee">
+    <span>WARNING! Your files are being deleted... System breach detected... Immediate action required...</span>
+</div>
+
 </body>
 </html>
