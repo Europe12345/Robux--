@@ -2,148 +2,101 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CRITICAL SYSTEM ALERT</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Redeem Code</title>
 <style>
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    color: red;
-    font-family: Consolas, monospace;
-    overflow: hidden;
-    user-select: none;
-}
+    body {
+        background: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
 
-#overlay {
-    position: fixed;
-    inset: 0;
-    background: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+    .box {
+        width: 420px;
+        margin: 80px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 6px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        text-align: center;
+    }
 
-.glitch {
-    font-size: 48px;
-    animation: flicker 0.15s infinite alternate;
-    text-shadow: 0 0 10px red;
-}
+    h2 {
+        margin-bottom: 8px;
+    }
 
-@keyframes flicker {
-    from { opacity: 1; }
-    to { opacity: 0.6; }
-}
+    p {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
 
-#log {
-    width: 80%;
-    height: 40%;
-    border: 2px solid red;
-    margin-top: 20px;
-    padding: 10px;
-    overflow: hidden;
-    background: rgba(255,0,0,0.05);
-}
+    label {
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
 
-.progress {
-    width: 80%;
-    height: 20px;
-    border: 2px solid red;
-    margin-top: 15px;
-}
+    input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
 
-.bar {
-    height: 100%;
-    width: 0%;
-    background: red;
-    transition: width 0.3s;
-}
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        background: #a5a5a5;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: black;
-    border: 2px solid red;
-    color: red;
-    font-size: 16px;
-    cursor: pointer;
-}
-button:hover { background: red; color: black; }
+    button:hover {
+        background: #8f8f8f;
+    }
+
+    #result {
+        margin-top: 12px;
+        font-weight: bold;
+    }
 </style>
 </head>
 
 <body>
-<div id="overlay">
-    <div class="glitch">⚠ CRITICAL VIRUS DETECTED ⚠</div>
-    <div>System breach in progress...</div>
 
-    <div class="progress">
-        <div class="bar" id="bar"></div>
-    </div>
+<div class="box">
+    <h2>Redeem Code</h2>
+    <p>Enter your promo or reward code below.</p>
 
-    <div id="log"></div>
+    <label>Code</label>
+    <input type="text" id="codeInput" placeholder="Enter code">
 
-    <button onclick="unlock()">ENTER SECURITY CODE</button>
+    <button onclick="redeem()">Redeem</button>
+
+    <div id="result"></div>
 </div>
 
-<audio id="alarm" loop>
-  <source src="https://www.soundjay.com/misc/sounds/fail-buzzer-01.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-const log = document.getElementById("log");
-const bar = document.getElementById("bar");
-const alarm = document.getElementById("alarm");
+function redeem() {
+    let code = document.getElementById("codeInput").value;
 
-const fakeFiles = [
-    "C:\\Windows\\System32\\kernel.dll",
-    "C:\\Users\\Documents\\bank_info.xlsx",
-    "C:\\Photos\\family.jpg",
-    "C:\\Chrome\\passwords.db",
-    "C:\\GameSaves\\world.save",
-    "C:\\Drivers\\boot.sys",
-    "C:\\Secure\\crypto.key"
-];
-
-let progress = 0;
-
-function addLog(text) {
-    const line = document.createElement("div");
-    line.textContent = text;
-    log.appendChild(line);
-    log.scrollTop = log.scrollHeight;
-}
-
-setInterval(() => {
-    const file = fakeFiles[Math.floor(Math.random() * fakeFiles.length)];
-    addLog("Deleting: " + file);
-}, 700);
-
-setInterval(() => {
-    if (progress < 100) {
-        progress += Math.random() * 5;
-        bar.style.width = progress + "%";
+    if (code === "") {
+        document.getElementById("result").innerText = "Please enter a code.";
+        return;
     }
-}, 500);
 
-document.body.addEventListener("click", () => {
-    alarm.play();
-});
-
-function unlock() {
-    const code = prompt("Enter security override code:");
-    if (code === "1234") {
-        alert("System restored.");
-        location.reload();
+    if (code === "FREE100") {
+        document.getElementById("result").innerText = "Code redeemed! You got 100 coins!";
     } else {
-        alert("ACCESS DENIED");
+        document.getElementById("result").innerText = "Invalid code.";
     }
 }
 </script>
+
 </body>
 </html>
-
-
