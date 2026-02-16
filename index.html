@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bouncing Prank</title>
+<title>Bouncing Smiles</title>
 <style>
 html, body {
     margin: 0;
@@ -12,36 +12,27 @@ html, body {
     background: black;
 }
 
-.split {
+.smile {
     position: absolute;
-    width: 50%;
-    height: 100%;
-    top: 0;
-    background-image: url("30023f2c-4e6e-48c1-a5cf-ff594dd97f47.png");
-    background-size: 200% 100%;
-}
-
-#left {
-    left: 0;
-    background-position: left top;
-}
-
-#right {
-    left: 50%;
-    background-position: right top;
+    font-size: 50px;
+    user-select: none;
 }
 </style>
 </head>
 <body>
 
-<div id="left" class="split"></div>
-<div id="right" class="split"></div>
+<div id="smile1" class="smile">😊</div>
+<div id="smile2" class="smile">😎</div>
+
+<audio id="bounceSound" src="https://www.soundjay.com/button/sounds/button-16.mp3" preload="auto"></audio>
 
 <script>
 const parts = [
-    { el: document.getElementById("left"),  x: 50,  y: 50,  vx: 3, vy: 2 },
-    { el: document.getElementById("right"), x: 300, y: 200, vx: -2, vy: 3 }
+    { el: document.getElementById("smile1"), x: 100, y: 100, vx: 3, vy: 2 },
+    { el: document.getElementById("smile2"), x: 300, y: 200, vx: -2, vy: 3 }
 ];
+
+const sound = document.getElementById("bounceSound");
 
 function bounce() {
     const w = window.innerWidth;
@@ -51,8 +42,15 @@ function bounce() {
         p.x += p.vx;
         p.y += p.vy;
 
-        if (p.x <= 0 || p.x + p.el.offsetWidth >= w) p.vx *= -1;
-        if (p.y <= 0 || p.y + p.el.offsetHeight >= h) p.vy *= -1;
+        // bounce off walls
+        if (p.x <= 0 || p.x + p.el.offsetWidth >= w) {
+            p.vx *= -1;
+            sound.play();
+        }
+        if (p.y <= 0 || p.y + p.el.offsetHeight >= h) {
+            p.vy *= -1;
+            sound.play();
+        }
 
         p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
     });
@@ -60,18 +58,19 @@ function bounce() {
     requestAnimationFrame(bounce);
 }
 
+// start bouncing immediately
 bounce();
 
-/* Text‑to‑speech loop */
+// Optional: Text-to-speech loop
 function speakLoop() {
-    const msg = new SpeechSynthesisUtterance("you are an idiot ahahahah");
+    const msg = new SpeechSynthesisUtterance("😄 Bouncing smiles!");
     msg.rate = 1;
     msg.pitch = 1.2;
-    msg.onend = () => setTimeout(speakLoop, 200);
+    msg.onend = () => setTimeout(speakLoop, 2000);
     speechSynthesis.speak(msg);
 }
 
-// start after user interacts (browser rule)
+// auto start TTS on load after user gesture
 document.body.addEventListener("click", () => {
     speechSynthesis.cancel();
     speakLoop();
