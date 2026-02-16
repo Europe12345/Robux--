@@ -1,102 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Redeem Code</title>
-<style>
-    body {
-        background: #f2f2f2;
-        font-family: Arial, sans-serif;
-    }
-
-    .box {
-        width: 420px;
-        margin: 80px auto;
-        background: white;
-        padding: 25px;
-        border-radius: 6px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.15);
-        text-align: center;
-    }
-
-    h2 {
-        margin-bottom: 8px;
-    }
-
-    p {
-        color: #666;
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
-
-    label {
-        display: block;
-        text-align: left;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    input {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-    }
-
-    button {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        border: none;
-        background: #a5a5a5;
-        color: white;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background: #8f8f8f;
-    }
-
-    #result {
-        margin-top: 12px;
-        font-weight: bold;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Link Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            font-size: 20px;
+            color: blue;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-
 <body>
-
-<div class="box">
-    <h2>Redeem Code</h2>
-    <p>Enter your promo or reward code below.</p>
-
-    <label>Code</label>
-    <input type="text" id="codeInput" placeholder="Enter code">
-
-    <button onclick="redeem()">Redeem</button>
-
-    <div id="result"></div>
-</div>
-
-<script>
-function redeem() {
-    let code = document.getElementById("codeInput").value;
-
-    if (code === "") {
-        document.getElementById("result").innerText = "Please enter a code.";
-        return;
-    }
-
-    if (code === "FREE100") {
-        document.getElementById("result").innerText = "Code redeemed! You got 100 coins!";
-    } else {
-        document.getElementById("result").innerText = "Invalid code.";
-    }
-}
-</script>
-
+    <h1>Secret Youtube Link</h1>
+    <a href="https://youtu.be/uiPVnCa7gn8" target="_blank">
+        Click here to open the video
+    </a>
 </body>
 </html>
